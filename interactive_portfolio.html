@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sravan Kumar's Power Platform Project Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Slate Gray with Teal Accent -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+        }
+        .filter-btn {
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .filter-btn.active {
+            background-color: #0f766e; /* teal-700 */
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .project-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .modal-backdrop {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <div id="app" class="container mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- ENHANCED HEADER SECTION -->
+        <header class="bg-white rounded-2xl shadow-xl p-8 sm:p-12 mb-10 border-b-4 border-teal-500">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+                Sravan Kumar's <span class="text-teal-600">Power Platform</span> Portfolio
+            </h1>
+            <p class="mt-4 text-lg text-slate-600 max-w-3xl">
+                I transform business challenges into high-value, scalable solutions using the Power Platform ecosystem, with a focus on deep **ERP integration** and **hybrid data architectures**.
+            </p>
+        </header>
+        <!-- END ENHANCED HEADER SECTION -->
+
+        <section id="summary-charts" class="mb-14">
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-8">Expertise at a Glance</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white p-6 rounded-xl shadow-lg border-t-2 border-indigo-200">
+                    <h3 class="text-xl font-semibold text-center mb-4 text-indigo-700">Projects by Database Type</h3>
+                    <div class="chart-container">
+                        <canvas id="dbChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border-t-2 border-fuchsia-200">
+                    <h3 class="text-xl font-semibold text-center mb-4 text-fuchsia-700">Projects by Application Type</h3>
+                    <div class="chart-container">
+                        <canvas id="appTypeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-6">Explore Projects</h2>
+            <div id="filter-container" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 p-4 bg-white rounded-xl shadow-inner max-w-6xl mx-auto">
+                <button onclick="filterProjects('All')" data-filter="All" class="filter-btn active px-4 py-2 text-sm font-medium rounded-full bg-teal-600 text-white shadow-lg">All Projects</button>
+                <!-- Filter buttons will be injected here -->
+            </div>
+
+            <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Project cards will be injected here -->
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Modal -->
+    <div id="projectModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="modal-backdrop fixed inset-0 bg-black bg-opacity-60" onclick="closeModal()"></div>
+        <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[95vh] overflow-y-auto relative transform scale-95 opacity-0">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800 transition z-10 p-2 rounded-full bg-white shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <div id="modalBody" class="p-6 sm:p-8 lg:p-10">
+                <!-- Modal content will be injected here -->
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Global API Configuration
+        const apiKey = "";
+        const apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=" + apiKey;
+
+        /**
+         * Generic function to call the Gemini API with exponential backoff.
+         */
+        async function callGeminiApi(systemInstruction, userQuery) {
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemInstruction }] },
+            };
+
+            const maxRetries = 5;
+            let delay = 1000;
+
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                        if (text) {
+                            return text;
+                        }
+                    }
+
+                    // If not successful, throw error to trigger retry logic
+                    throw new Error(`API call failed with status: ${response.status}`);
+
+                } catch (error) {
+                    // Suppress console error for retries, only log final failure
+                    if (i === maxRetries - 1) {
+                         console.error(`Attempt ${i + 1} failed:`, error);
+                        return "Error: Could not connect to AI service. Please try again.";
+                    }
+                    // Exponential backoff
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2;
+                }
+            }
+        }
+
+        function setLoading(isLoading, message = '') {
+            const responseArea = document.getElementById('ai-response-area');
+            const responseText = document.getElementById('ai-response-text');
+            const rephraseBtn = document.getElementById('rephrase-btn');
+            const questionsBtn = document.getElementById('questions-btn');
+
+            if (isLoading) {
+                responseArea.classList.remove('hidden');
+                responseText.innerHTML = `<span class="animate-pulse">Loading ${message}...</span>`;
+                rephraseBtn.disabled = true;
+                questionsBtn.disabled = true;
+                rephraseBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                questionsBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                rephraseBtn.disabled = false;
+                questionsBtn.disabled = false;
+                rephraseBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                questionsBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        async function rephraseSummary(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (!project) return;
+
+            setLoading(true, 'Business Summary');
+
+            const systemPrompt = "You are a world-class Power Platform Consultant. Your task is to rephrase the provided project details (Problem, Solution, and Summary) into a single, concise paragraph (max 100 words) that focuses entirely on **quantifiable business value, cost savings, risk reduction, and ROI.** Use strong, action-oriented, professional vocabulary appropriate for a recruiter or executive summary. Do not use bullet points or lists. Start directly with the summary.";
+            
+            const userQuery = `
+                Project Title: ${project.title}
+                Problem: ${project.problem}
+                Solution: ${project.solution}
+                Achievements: ${project.achievements.join('; ')}
+            `;
+
+            const result = await callGeminiApi(systemPrompt, userQuery);
+            
+            setLoading(false);
+            const responseArea = document.getElementById('ai-response-area');
+            const responseText = document.getElementById('ai-response-text');
+            
+            responseText.innerHTML = `
+                <h4 class="text-base font-bold text-indigo-700 mb-2">Recruiter-Optimized Summary:</h4>
+                <p class="text-sm">${result}</p>
+                <p class="mt-2 text-xs text-slate-500">
+                    <span class="font-bold">Original Summary:</span> ${project.summary}
+                </p>
+            `;
+            responseArea.classList.remove('hidden');
+        }
+
+
+        async function generateInterviewQuestions(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (!project) return;
+
+            setLoading(true, 'Interview Questions');
+
+            const systemPrompt = "You are an experienced Power Platform Technical Interviewer. Generate 3-4 deep-dive, scenario-based interview questions based on the provided project description, technical stack, and achievements. The questions should test the candidate's understanding of delegation, data modeling, integration, and flow logic. Format the response as a numbered list.";
+            
+            const userQuery = `
+                Project Title: ${project.title}
+                App Type: ${project.appType}
+                Primary DB: ${project.db}
+                Technical Stack: ${project.techStack.join(', ')}
+                Key Achievements: ${project.achievements.join('; ')}
+                Problem and Solution: ${project.problem} / ${project.solution}
+            `;
+
+            const result = await callGeminiApi(systemPrompt, userQuery);
+            
+            setLoading(false);
+            const responseArea = document.getElementById('ai-response-area');
+            const responseText = document.getElementById('ai-response-text');
+
+            // Simple markdown to HTML conversion for numbered list
+            const htmlResult = result.split('\n').map(line => {
+                const match = line.match(/^\s*(\d+)\.\s*(.*)/);
+                if (match) {
+                    // This is a list item
+                    return `<li class="ml-4">${match[2].trim()}</li>`;
+                }
+                // Handle raw text/paragraphs if model outputs them
+                return line.trim() ? `<p>${line.trim()}</p>` : '';
+            }).join('');
+            
+            responseText.innerHTML = `
+                <h4 class="text-base font-bold text-fuchsia-700 mb-2">Potential Interview Questions:</h4>
+                <ol class="list-decimal pl-5 space-y-2 text-sm">${htmlResult}</ol>
+            `;
+            responseArea.classList.remove('hidden');
+        }
+
+
+        const projects = [
+            {
+                id: 1,
+                title: "Product Design Change Management System",
+                client: "Global Manufacturing Firm (AMScreen)",
+                appType: "Canvas",
+                db: "Hybrid (SQL/SharePoint)",
+                tags: ["SQL", "SharePoint", "Hybrid Data", "Delegation", "Multi-Stage Approval", "ERP"],
+                summary: "A comprehensive system to manage and implement product design changes, linking live ERP data with a custom approval workflow.",
+                problem: "The existing process for managing product design changes relied on manual emails and spreadsheets, leading to delays, data entry errors, and a lack of visibility into the approval pipeline.",
+                solution: "Developed a Canvas App that provides a centralized platform for submitting, reviewing, and approving design changes. The app reads real-time product and stock data directly from the company's SQL-based ERP system and stores process-related data in SharePoint for auditable tracking.",
+                techStack: ["Power Apps (Canvas)", "Power Automate", "Power BI", "SQL Server Connector", "SharePoint"],
+                achievements: [
+                    "Created a hybrid data architecture combining SQL for live data and SharePoint for transactional data.",
+                    "Implemented complex, multi-stage, cross-functional approval flows using Power Automate.",
+                    "Utilized advanced delegation techniques to ensure high performance with large SQL datasets.",
+                    "Provided management with a Power BI dashboard for real-time visibility into change request status."
+                ]
+            },
+            {
+                id: 2,
+                title: "Product Order Configuration Tool",
+                client: "Global Manufacturing Firm (AMScreen)",
+                appType: "Canvas",
+                db: "Hybrid (SQL/SharePoint)",
+                tags: ["SQL", "SharePoint", "Hybrid Data", "Complex Logic", "ERP"],
+                summary: "An app to manage complex product configurations based on sales orders, supporting production planning and works order generation.",
+                problem: "Sales orders for configurable products required manual validation and translation into production-ready works orders, a time-consuming process prone to human error.",
+                solution: "A Canvas App that pulls sales order requirements from the ERP (SQL) and guides users through a rules-based configuration process. It validates component compatibility and generates a detailed works order, which is stored in SharePoint before being fed into the production schedule.",
+                techStack: ["Power Apps (Canvas)", "Power Automate", "SQL Server Connector", "SharePoint"],
+                achievements: [
+                    "Engineered a complex rules engine within Power Apps to handle thousands of product configurations.",
+                    "Integrated directly with the sales order module of the ERP system for seamless data flow.",
+                    "Significantly reduced the time required to generate accurate works orders for production.",
+                    "Improved data consistency between sales and production departments."
+                ]
+            },
+            {
+                id: 3,
+                title: "Field Service Request Management",
+                client: "Global Manufacturing Firm (AMScreen)",
+                appType: "Canvas",
+                db: "Dataverse",
+                tags: ["Dataverse", "Mobile", "Offline", "Resource Planning"],
+                summary: "A mobile-first application for logging customer service requests, planning technician resources, and ensuring on-site safety compliance.",
+                problem: "Field technicians lacked a centralized system to receive job details, report progress, and complete mandatory safety checks, resulting in inefficient scheduling and compliance risks.",
+                solution: "A mobile-optimized Canvas App built on Dataverse, enabling offline capabilities. Technicians can view job details, complete dynamic H&S checklists, capture customer signatures, and upload photos from the field. Office staff use the same system for resource allocation and scheduling.",
+                techStack: ["Power Apps (Canvas)", "Dataverse", "Power Automate", "Outlook"],
+                achievements: [
+                    "Successfully implemented offline capabilities, allowing technicians to work in areas with no connectivity.",
+                    "Designed a robust Dataverse data model to manage service requests, assets, and technician schedules.",
+                    "Automated resource planning and calendar invitations via Power Automate and Outlook integration.",
+                    "Ensured 100% compliance with digital health and safety checklist completion."
+                ]
+            },
+            {
+                id: 4,
+                title: "Corporate IT Ticketing System",
+                client: "Global Manufacturing Firm (AMScreen)",
+                appType: "Canvas",
+                db: "SharePoint",
+                tags: ["SharePoint", "Power BI", "Workflow Automation"],
+                summary: "A company-wide system for employees to register IT issues, allowing the IT department to manage, prioritize, and report on their workload.",
+                problem: "IT support requests were managed through email, leading to lost tickets, no prioritization system, and an inability for the IT department to track performance metrics.",
+                solution: "A user-friendly Canvas App where employees can submit tickets with categorized issue types. A corresponding Power Automate flow handles notifications and assignments. A Power BI dashboard provides the IT manager with insights into ticket volume, resolution times, and common issues.",
+                techStack: ["Power Apps (Canvas)", "SharePoint Lists", "Power Automate", "Power BI"],
+                achievements: [
+                    "Built a scalable solution on SharePoint capable of handling high volumes of tickets.",
+                    "Automated the entire ticket lifecycle from submission to resolution notification.",
+                    "Empowered the IT department with data-driven insights through an integrated Power BI dashboard.",
+                    "Improved employee satisfaction with the IT support process through increased transparency."
+                ]
+            },
+            {
+                id: 5,
+                title: "Human Resource Management System (HRMS)",
+                client: "IT Services Provider (Sysglobal IT)",
+                appType: "Model-Driven",
+                db: "Dataverse",
+                tags: ["Dataverse", "Model-Driven", "Data Security", "Approval Workflows"],
+                summary: "A secure, comprehensive system for managing all core HR data, including employee records, timesheets, and leave requests.",
+                problem: "The company needed a centralized and secure platform to manage sensitive employee information, replacing disparate spreadsheets and manual approval processes.",
+                solution: "A Model-Driven App built on Dataverse, leveraging its role-based security to ensure data privacy. The app features custom tables for employee data, timesheets, and leave balances, with Power Automate managing complex, multi-level approval workflows for requests.",
+                techStack: ["Power Apps (Model-Driven)", "Dataverse", "Power Automate", "Power BI"],
+                achievements: [
+                    "Implemented granular, role-based security using Dataverse to protect sensitive HR data.",
+                    "Designed a relational data model with custom tables to represent the entire employee lifecycle.",
+                    "Automated leave request and timesheet approvals, significantly reducing administrative overhead.",
+                    "Provided HR with a single source of truth for all employee data and reporting."
+                ]
+            },
+            {
+                id: 6,
+                title: "Machine OEE Monitoring Application",
+                client: "Automotive Supplier (BCW Group)",
+                appType: "Canvas",
+                db: "SQL",
+                tags: ["SQL", "Power BI", "Real-time Data", "Role-Based UI"],
+                summary: "A two-part application for machine operators to report production data and for managers to monitor Overall Equipment Effectiveness (OEE) in real-time.",
+                problem: "Tracking machine performance and downtime was a manual, paper-based process, making it impossible to calculate accurate OEE or react quickly to production issues.",
+                solution: "Developed two distinct Canvas App interfaces: one simplified for quick data entry by machine operators on the factory floor, and a second, feature-rich admin version for managers. Both apps connect to a central SQL database. A live Power BI dashboard visualizes OEE metrics for the entire plant.",
+                techStack: ["Power Apps (Canvas)", "SQL Server", "Power Automate", "Power BI"],
+                achievements: [
+                    "Designed and implemented separate, role-specific UIs within a single solution.",
+                    "Built a high-performance system capable of handling frequent data submissions from multiple machines.",
+                    "Enabled real-time monitoring of critical manufacturing KPIs via a live Power BI dashboard.",
+                    "Replaced a paper-based system, leading to a significant improvement in data accuracy and availability."
+                ]
+            },
+            {
+                id: 7,
+                title: "Quality Control & SPC Data Capture (BONDEX)",
+                client: "Automotive Supplier (BCW Group)",
+                appType: "Canvas",
+                db: "SQL",
+                tags: ["SQL", "Data Validation", "Report Generation", "Compliance"],
+                summary: "A specialized app for capturing Statistical Process Control (SPC) data, coating thickness, and pull test results, with automated batch reporting.",
+                problem: "Quality control data was recorded manually, posing a risk of non-compliance and making it difficult to generate the batch reports required by customers.",
+                solution: "A Canvas App that enforces strict data validation rules during entry to ensure compliance with quality standards. The app captures various test results and stores them in a structured SQL database. A Power Automate flow triggers on batch completion to automatically generate a formatted PDF report for the customer.",
+                techStack: ["Power Apps (Canvas)", "SQL Server", "Power Automate"],
+                achievements: [
+                    "Implemented complex data validation and calculation logic directly within the app.",
+                    "Automated the generation of customer-facing compliance reports, saving hours of manual work.",
+                    "Created a reliable, auditable trail for all quality control data.",
+                    "Improved the accuracy and consistency of SPC data capture."
+                ]
+            },
+            {
+                id: 8,
+                title: "ERP-Integrated Purchase Requisition System (PR)",
+                client: "Automotive Supplier (BCW Group)",
+                appType: "Canvas",
+                db: "SQL",
+                tags: ["SQL", "ERP", "Writeback", "Multi-Stage Approval"],
+                summary: "A system for raising and managing purchase requisitions, featuring deep integration with the ERP to automate purchase order generation.",
+                problem: "The purchase requisition process was manual and lacked integration with the ERP, requiring duplicate data entry and offering no visibility into approval or PO status.",
+                solution: "A Canvas App that allows users to create requisitions, which then enter a dynamic, multi-level approval process managed by Power Automate. Once fully approved, a stored procedure is called to write the data directly into the ERP's SQL database, automatically generating a purchase order. The app then reads PO status back from the ERP.",
+                techStack: ["Power Apps (Canvas)", "SQL Server (Direct ERP Integration)", "Power Automate"],
+                achievements: [
+                    "Achieved true writeback functionality to a production ERP system via SQL stored procedures.",
+                    "Designed a complex, dynamic approval flow that adapts based on requisition value and department.",
+                    "Provided requesters with end-to-end visibility, from submission to purchase order creation.",
+                    "Eliminated all duplicate data entry between the requisition and purchasing systems."
+                ]
+            },
+            {
+                id: 9,
+                title: "Non-Conformance & Quality Management (QUEST)",
+                client: "Automotive Supplier (BCW Group)",
+                appType: "Canvas",
+                db: "SQL",
+                tags: ["SQL", "Workflow Automation", "Corrective Action", "Compliance"],
+                summary: "An app for the quality department to manage non-conforming parts, track scrap, and oversee corrective action workflows.",
+                problem: "Non-conformance reporting was slow and disconnected from the production data (OEE App), delaying root cause analysis and corrective actions.",
+                solution: "A Canvas App that integrates with the OEE app data to quickly log non-conformances. It features structured forms for scrap reporting and a custom workflow for managing the 8D (Corrective and Preventive Action) process, ensuring compliance and rapid issue resolution.",
+                techStack: ["Power Apps (Canvas)", "SQL Server", "Power Automate"],
+                achievements: [
+                    "Directly linked quality reporting to production data for immediate identification of issues.",
+                    "Implemented a custom 8D (CAPA) workflow for standardized and auditable corrective actions.",
+                    "Provided tools for scrap management and real-time defect trend analysis.",
+                    "Significantly reduced the time from defect identification to corrective action planning."
+                ]
+            },
+            {
+                id: 10,
+                title: "HR Lifecycle Management (HRBOUR)",
+                client: "Automotive Supplier (BCW Group)",
+                appType: "Canvas",
+                db: "SQL",
+                tags: ["SQL", "HR", "Employee Lifecycle", "API Integration"],
+                summary: "An HR app to manage organizational change requests, employment updates (promotions), and employee details like address changes.",
+                problem: "HR changes required manual paperwork, leading to delays and potential errors in updating core HR systems and payroll.",
+                solution: "A Canvas App providing self-service forms for employees and managers to submit organizational requests (new hires, promotions, department changes). A Power Automate flow manages the multi-level approval and integrates via API to update the external third-party HR system.",
+                techStack: ["Power Apps (Canvas)", "SQL Server", "Power Automate", "Custom API Connector"],
+                achievements: [
+                    "Created a custom API connector to seamlessly update the external third-party HR system.",
+                    "Designed complex approval chains based on manager and HR hierarchy.",
+                    "Centralized all employee and organizational change requests, replacing paper forms.",
+                    "Ensured data consistency across the Power Platform and the core HR system."
+                ]
+            }
+        ];
+
+        let dbChartInstance = null;
+        let appTypeChartInstance = null;
+        let activeFilter = 'All';
+
+        const colorPalette = [
+            '#0f766e', // Teal-700
+            '#10b981', // Emerald-500
+            '#3b82f6', // Blue-500
+            '#ef4444', // Red-500
+            '#f59e0b', // Amber-500
+            '#a855f7', // Violet-500
+        ];
+
+        function calculateChartData() {
+            const dbCounts = {};
+            const appTypeCounts = {};
+            const allTags = new Set();
+
+            projects.forEach(p => {
+                dbCounts[p.db] = (dbCounts[p.db] || 0) + 1;
+                appTypeCounts[p.appType] = (appTypeCounts[p.appType] || 0) + 1;
+                p.tags.forEach(tag => allTags.add(tag));
+            });
+
+            return { dbCounts, appTypeCounts, allTags: Array.from(allTags).sort() };
+        }
+
+        function renderCharts(data) {
+            const dbCtx = document.getElementById('dbChart').getContext('2d');
+            const appTypeCtx = document.getElementById('appTypeChart').getContext('2d');
+
+            const dbData = {
+                labels: Object.keys(data.dbCounts),
+                datasets: [{
+                    data: Object.values(data.dbCounts),
+                    backgroundColor: colorPalette.slice(0, Object.keys(data.dbCounts).length),
+                    hoverOffset: 4
+                }]
+            };
+
+            const appTypeData = {
+                labels: Object.keys(data.appTypeCounts),
+                datasets: [{
+                    data: Object.values(data.appTypeCounts),
+                    backgroundColor: colorPalette.slice(0, Object.keys(data.appTypeCounts).length),
+                    hoverOffset: 4
+                }]
+            };
+
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 15,
+                            font: {
+                                family: 'Inter',
+                                size: 13
+                            }
+                        }
+                    },
+                    tooltip: {
+                        bodyFont: { family: 'Inter' }
+                    }
+                }
+            };
+
+            if (dbChartInstance) dbChartInstance.destroy();
+            dbChartInstance = new Chart(dbCtx, {
+                type: 'doughnut',
+                data: dbData,
+                options: chartOptions
+            });
+
+            if (appTypeChartInstance) appTypeChartInstance.destroy();
+            appTypeChartInstance = new Chart(appTypeCtx, {
+                type: 'doughnut',
+                data: appTypeData,
+                options: chartOptions
+            });
+        }
+
+        function renderFilters(allTags) {
+            const container = document.getElementById('filter-container');
+            // Remove the 'All Projects' button before regeneration, as it's hardcoded in HTML
+            const existingButtons = container.querySelectorAll('.filter-btn:not([data-filter="All"])');
+            existingButtons.forEach(btn => btn.remove());
+
+            allTags.forEach(tag => {
+                const button = document.createElement('button');
+                button.setAttribute('data-filter', tag);
+                button.classList.add('filter-btn', 'px-4', 'py-2', 'text-sm', 'font-medium', 'rounded-full', 'bg-slate-200', 'hover:bg-teal-500', 'hover:text-white', 'text-slate-700');
+                button.textContent = tag;
+                button.onclick = () => filterProjects(tag);
+                container.appendChild(button);
+            });
+        }
+
+        function filterProjects(filterTag) {
+            activeFilter = filterTag;
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'bg-teal-600', 'text-white');
+                btn.classList.add('bg-slate-200', 'text-slate-700');
+                if (btn.getAttribute('data-filter') === filterTag) {
+                    btn.classList.add('active', 'bg-teal-600', 'text-white');
+                    btn.classList.remove('bg-slate-200', 'text-slate-700');
+                }
+                if (filterTag === 'All' && btn.getAttribute('data-filter') === 'All') {
+                    btn.classList.add('active', 'bg-teal-600', 'text-white');
+                    btn.classList.remove('bg-slate-200', 'text-slate-700');
+                }
+            });
+
+            renderProjects();
+        }
+
+        function renderProjects() {
+            const grid = document.getElementById('project-grid');
+            grid.innerHTML = '';
+            
+            const filteredProjects = projects.filter(p => 
+                activeFilter === 'All' || p.tags.includes(activeFilter)
+            );
+
+            filteredProjects.forEach(p => {
+                const card = document.createElement('div');
+                card.classList.add('project-card', 'bg-white', 'p-6', 'rounded-xl', 'shadow-lg', 'border-t-4', 'border-teal-500');
+                card.setAttribute('onclick', `openModal(${p.id})`);
+                
+                card.innerHTML = `
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">${p.title}</h3>
+                    <p class="text-sm text-slate-500 mb-4">${p.client}</p>
+                    <p class="text-slate-600 mb-4">${p.summary}</p>
+                    <div class="flex flex-wrap gap-2">
+                        ${p.tags.slice(0, 4).map(tag => `<span class="px-3 py-1 text-xs font-semibold bg-slate-100 text-teal-700 rounded-full">${tag}</span>`).join('')}
+                        ${p.tags.length > 4 ? `<span class="px-3 py-1 text-xs font-semibold bg-slate-100 text-slate-500 rounded-full">+${p.tags.length - 4} More</span>` : ''}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openModal(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (!project) return;
+
+            const modal = document.getElementById('projectModal');
+            const modalBody = document.getElementById('modalBody');
+            
+            // Clear previous response before opening a new modal
+            modalBody.innerHTML = ''; 
+
+            modalBody.innerHTML = `
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">${project.title}</h2>
+                <p class="text-lg text-teal-600 mb-6">${project.client}</p>
+
+                <div class="mb-6 flex flex-wrap gap-4 text-sm font-medium">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-lg">App Type: ${project.appType}</span>
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-lg">Primary DB: ${project.db}</span>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold border-b pb-1 mb-3 text-slate-700">The Business Challenge</h3>
+                    <p class="text-slate-600">${project.problem}</p>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold border-b pb-1 mb-3 text-slate-700">The Power Platform Solution</h3>
+                    <p class="text-slate-600">${project.solution}</p>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold border-b pb-1 mb-3 text-slate-700">Key Development Highlights</h3>
+                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                        ${project.achievements.map(a => `<li>${a}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="text-xl font-semibold border-b pb-1 mb-3 text-slate-700">Technical Stack Used</h3>
+                    <div class="flex flex-wrap gap-2">
+                        ${project.techStack.map(t => `<span class="px-3 py-1 text-sm font-medium bg-slate-200 text-slate-800 rounded-full">${t}</span>`).join('')}
+                    </div>
+                </div>
+
+                <!-- NEW: GEMINI AI SECTION -->
+                <div class="mt-8 pt-6 border-t border-slate-200">
+                    <h3 class="text-2xl font-bold text-teal-700 mb-4">AI-Powered Portfolio Tools</h3>
+                    <div id="ai-response-area" class="bg-slate-100 p-4 rounded-xl text-slate-700 hidden shadow-inner">
+                        <p id="ai-response-text" class="text-sm italic"></p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-3 mt-4">
+                        <button onclick="rephraseSummary(${project.id})" id="rephrase-btn" class="flex-1 px-4 py-3 text-sm font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition shadow-md">
+                            ✨ Rephrase Summary (Business Focus)
+                        </button>
+                        <button onclick="generateInterviewQuestions(${project.id})" id="questions-btn" class="flex-1 px-4 py-3 text-sm font-semibold rounded-lg bg-fuchsia-600 text-white hover:bg-fuchsia-700 transition shadow-md">
+                            ✨ Generate Interview Questions
+                        </button>
+                    </div>
+                </div>
+                <!-- END NEW SECTION -->
+            `;
+
+            modal.classList.remove('hidden');
+            // Animate in
+            setTimeout(() => {
+                modal.querySelector('.modal-content').classList.remove('opacity-0', 'scale-95');
+                modal.querySelector('.modal-content').classList.add('opacity-100', 'scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('projectModal');
+            // Animate out
+            modal.querySelector('.modal-content').classList.remove('opacity-100', 'scale-100');
+            modal.querySelector('.modal-content').classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function init() {
+            const data = calculateChartData();
+            renderCharts(data);
+            renderFilters(data.allTags);
+            renderProjects();
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
