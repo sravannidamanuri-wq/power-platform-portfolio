@@ -3,25 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sravan Kumar's Power Platform Project Portfolio</title>
+    <title>Sravan Kumar's Power Platform Consulting</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Slate Gray with Teal Accent -->
+    
     <style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc; /* slate-50 */
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 380px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 320px;
         }
         .filter-btn {
             transition: all 0.2s ease-in-out;
@@ -47,45 +38,230 @@
         .modal-content {
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
+        
+        /* Custom styles for the accordion to hide the default arrow */
+        details summary {
+            cursor: pointer;
+            list-style: none; /* Hide default triangle */
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
     </style>
 </head>
 <body class="text-slate-700">
 
     <div id="app" class="container mx-auto p-4 sm:p-6 lg:p-8">
 
-        <!-- ENHANCED HEADER SECTION -->
+        <!-- UPDATED HEADER SECTION -->
         <header class="bg-white rounded-2xl shadow-xl p-8 sm:p-12 mb-10 border-b-4 border-teal-500">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
-                Sravan Kumar's <span class="text-teal-600">Power Platform</span> Portfolio
+            <h1 class="text-5xl md:text-6xl font-extrabold text-slate-900 leading-tight">
+                Sravan Kumar
             </h1>
-            <p class="mt-4 text-lg text-slate-600 max-w-3xl">
-                I transform business challenges into high-value, scalable solutions using the Power Platform ecosystem, with a focus on deep **ERP integration** and **hybrid data architectures**.
+            <p class="text-2xl md:text-3xl font-extrabold text-teal-600 mt-2">
+                Power Platform Project Portfolio & Technical Expertise
+            </p>
+            <p class="mt-4 text-lg text-slate-600 max-w-4xl leading-relaxed">
+                I transform manual, error-prone operations into **scalable, high-value, and automated solutions**. Focused on driving tangible **ROI** through efficiency and risk mitigation.
             </p>
         </header>
-        <!-- END ENHANCED HEADER SECTION -->
+        <!-- END UPDATED HEADER SECTION -->
 
-        <section id="summary-charts" class="mb-14">
-            <h2 class="text-3xl font-bold text-center text-slate-800 mb-8">Expertise at a Glance</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <div class="bg-white p-6 rounded-xl shadow-lg border-t-2 border-indigo-200">
-                    <h3 class="text-xl font-semibold text-center mb-4 text-indigo-700">Projects by Database Type</h3>
-                    <div class="chart-container">
-                        <canvas id="dbChart"></canvas>
+        <!-- UPDATED: CERTIFICATIONS AND EXPERTISE BADGE BAR -->
+        <section id="certifications" class="bg-indigo-700 text-white rounded-2xl shadow-xl p-4 mb-10 max-w-6xl mx-auto">
+            <div class="flex flex-wrap justify-center items-center gap-6">
+                <h3 class="text-lg font-bold mr-4 hidden sm:block">Certifications & Key Skills:</h3>
+                
+                <span class="flex items-center space-x-2 text-sm bg-indigo-600 px-4 py-2 rounded-full font-medium shadow-lg">
+                    <span class="text-xl">📚</span>
+                    <span>Power Platform Fundamentals (PL-900)</span>
+                </span>
+                
+                <span class="flex items-center space-x-2 text-sm bg-indigo-600 px-4 py-2 rounded-full font-medium shadow-lg">
+                    <span class="text-xl">💾</span>
+                    <span>SQL Server & Database Integration</span>
+                </span>
+                
+                <span class="flex items-center space-x-2 text-sm bg-indigo-600 px-4 py-2 rounded-full font-medium shadow-lg">
+                    <span class="text-xl">📊</span>
+                    <span>Power BI Data Analyst Associate (PL-300)</span>
+                </span>
+                
+                <span class="flex items-center space-x-2 text-sm bg-indigo-600 px-4 py-2 rounded-full font-medium shadow-lg">
+                    <span class="text-xl">🚀</span>
+                    <span>Expertise in Power Apps & Automate</span>
+                </span>
+            </div>
+        </section>
+        <!-- END UPDATED CERTIFICATIONS BAR -->
+
+        <!-- UPDATED: SERVICES AND EXPERTISE ACCORDION -->
+        <section id="services" class="mb-14 p-8 bg-white rounded-2xl shadow-xl border-t-4 border-teal-500 max-w-5xl mx-auto">
+            <h2 class="text-4xl font-extrabold text-center text-slate-800 mb-4">My Full-Spectrum Expertise</h2>
+            <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">Click on any service area below to see detailed capabilities. I deliver end-to-end Power Platform solutions that are robust, scalable, and fully integrated with your business data.</p>
+
+            <div id="services-accordion" class="space-y-4">
+                
+                <!-- Service 1: Canvas Apps -->
+                <details class="group bg-slate-50 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300 ease-in-out">
+                    <summary class="flex items-center justify-between p-5 bg-teal-50 border-l-4 border-teal-600 text-teal-800 font-semibold text-lg cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">📱</span>
+                            <span>**Canvas App** Development & UI/UX</span>
+                        </div>
+                        <svg class="w-5 h-5 transition duration-300 group-open:rotate-180 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="p-5 pt-0 text-slate-600 border-t border-teal-200 bg-white">
+                        <ul class="list-disc ml-5 space-y-2 mt-4">
+                            <li>Design and build **mobile-first, responsive applications** for specific tasks (e.g., field service, inventory, safety).</li>
+                            <li>Focus on **intuitive, high-performance UI/UX** that minimizes clicks and maximizes user adoption.</li>
+                            <li>Expertise in **offline functionality** and connecting to diverse data sources.</li>
+                        </ul>
                     </div>
+                </details>
+
+                <!-- Service 2: Model-Driven Apps -->
+                <details class="group bg-slate-50 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300 ease-in-out">
+                    <summary class="flex items-center justify-between p-5 bg-teal-50 border-l-4 border-teal-600 text-teal-800 font-semibold text-lg cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">🏛️</span>
+                            <span>**Model-Driven Apps** & Dataverse Solutions</span>
+                        </div>
+                        <svg class="w-5 h-5 transition duration-300 group-open:rotate-180 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="p-5 pt-0 text-slate-600 border-t border-teal-200 bg-white">
+                        <ul class="list-disc ml-5 space-y-2 mt-4">
+                            <li>Developing **data-centric enterprise applications** (CRM, HRMS, Asset Management) on the secure **Dataverse** platform.</li>
+                            <li>Implementation of **complex role-based security** and business process flows (BPFs).</li>
+                            <li>Building Power Pages (Portals) for secure external user access.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <!-- Service 3: Process Automation -->
+                <details class="group bg-slate-50 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300 ease-in-out">
+                    <summary class="flex items-center justify-between p-5 bg-teal-50 border-l-4 border-teal-600 text-teal-800 font-semibold text-lg cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">🤖</span>
+                            <span>**Process Automation** (Power Automate)</span>
+                        </div>
+                        <svg class="w-5 h-5 transition duration-300 group-open:rotate-180 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="p-5 pt-0 text-slate-600 border-t border-teal-200 bg-white">
+                        <ul class="list-disc ml-5 space-y-2 mt-4">
+                            <li>Designing and deploying **multi-stage, dynamic approval workflows** (e.g., procurement, expenses, HR changes).</li>
+                            <li>Implementing **RPA (Robotic Process Automation)** using Power Automate Desktop for legacy system interaction.</li>
+                            <li>Data synchronization and scheduled data maintenance flows across multiple platforms.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <!-- Service 4: ERP/Third-Party Tools Integration -->
+                <details class="group bg-slate-50 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300 ease-in-out">
+                    <summary class="flex items-center justify-between p-5 bg-teal-50 border-l-4 border-teal-600 text-teal-800 font-semibold text-lg cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">🔗</span>
+                            <span>**ERP & Third-Party Tools Integration**</span>
+                        </div>
+                        <svg class="w-5 h-5 transition duration-300 group-open:rotate-180 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="p-5 pt-0 text-slate-600 border-t border-teal-200 bg-white">
+                        <ul class="list-disc ml-5 space-y-2 mt-4">
+                            <li>Developing secure, high-performance **Custom Connectors** for APIs (REST, SOAP).</li>
+                            <li>Deep integration with **SQL Server, SAP, and other ERP systems** for real-time data read and **writeback**.</li>
+                            <li>Implementation of Azure services (Functions, Logic Apps) for highly complex or volume-based integrations.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <!-- Service 5: Process Analysis & Mapping -->
+                <details class="group bg-slate-50 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300 ease-in-out">
+                    <summary class="flex items-center justify-between p-5 bg-teal-50 border-l-4 border-teal-600 text-teal-800 font-semibold text-lg cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">🗺️</span>
+                            <span>**Process Analysis**, Mapping & Governance</span>
+                        </div>
+                        <svg class="w-5 h-5 transition duration-300 group-open:rotate-180 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="p-5 pt-0 text-slate-600 border-t border-teal-200 bg-white">
+                        <ul class="list-disc ml-5 space-y-2 mt-4">
+                            <li>Utilizing **Power Automate Process Mining** to automatically discover and analyze key business process bottlenecks.</li>
+                            <li>Traditional process mapping (As-Is/To-Be) to define clear, measurable solution goals.</li>
+                            <li>Establishing **Center of Excellence (CoE)** best practices for Power Platform governance and adoption.</li>
+                            
+                        </ul>
+                    </div>
+                </details>
+                
+                <!-- Service 6: SharePoint Setup & Customization -->
+                <details class="group bg-slate-50 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-300 ease-in-out">
+                    <summary class="flex items-center justify-between p-5 bg-teal-50 border-l-4 border-teal-600 text-teal-800 font-semibold text-lg cursor-pointer">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">📂</span>
+                            <span>**SharePoint Setup** & Data Integration</span>
+                        </div>
+                        <svg class="w-5 h-5 transition duration-300 group-open:rotate-180 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="p-5 pt-0 text-slate-600 border-t border-teal-200 bg-white">
+                        <ul class="list-disc ml-5 space-y-2 mt-4">
+                            <li>Modern **SharePoint Site Architecture** design for document and data management.</li>
+                            <li>Building and optimizing **SharePoint Lists** as robust and delegable data sources for Power Apps.</li>
+                            <li>Custom form design and migration from classic forms to Power Apps custom forms.</li>
+                        </ul>
+                    </div>
+                </details>
+
+            </div>
+            
+            <div class="mt-10 text-center">
+                <a href="#portfolio" class="inline-block px-8 py-3 text-lg font-bold text-white bg-teal-600 rounded-lg hover:bg-teal-700 transition shadow-xl">
+                    Explore My Solved Business Challenges &rarr;
+                </a>
+            </div>
+        </section>
+        <!-- END UPDATED SERVICES SECTION -->
+
+        <!-- NEW: IMPACT AND ROI METRICS SECTION -->
+        <section id="impact-metrics" class="mb-14 p-8 bg-indigo-50 rounded-2xl shadow-xl border-b-4 border-indigo-500 max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-center text-indigo-800 mb-8">Quantifiable Impact & ROI Delivered</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Metric 1: Efficiency Gains -->
+                <div class="p-5 bg-white rounded-xl shadow-lg border-l-4 border-teal-500 hover:shadow-2xl transition duration-300">
+                    <div class="text-4xl font-extrabold text-teal-600 mb-2">~80%</div>
+                    <p class="text-lg font-semibold text-slate-700">Efficiency Gain</p>
+                    <p class="text-sm text-slate-500 mt-1">Reduction in manual data entry and paperwork across core processes.</p>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-lg border-t-2 border-fuchsia-200">
-                    <h3 class="text-xl font-semibold text-center mb-4 text-fuchsia-700">Projects by Application Type</h3>
-                    <div class="chart-container">
-                        <canvas id="appTypeChart"></canvas>
-                    </div>
+                
+                <!-- Metric 2: Time Savings -->
+                <div class="p-5 bg-white rounded-xl shadow-lg border-l-4 border-fuchsia-500 hover:shadow-2xl transition duration-300">
+                    <div class="text-4xl font-extrabold text-fuchsia-600 mb-2">10 Days &rarr; 2 Hours</div>
+                    <p class="text-lg font-semibold text-slate-700">Process Cycle Reduction</p>
+                    <p class="text-sm text-slate-500 mt-1">Average time saved in high-value, multi-stage approval workflows.</p>
+                </div>
+                
+                <!-- Metric 3: Risk Reduction -->
+                <div class="p-5 bg-white rounded-xl shadow-lg border-l-4 border-blue-500 hover:shadow-2xl transition duration-300">
+                    <div class="text-4xl font-extrabold text-blue-600 mb-2">100%</div>
+                    <p class="text-lg font-semibold text-slate-700">Compliance & Audit Trail</p>
+                    <p class="text-sm text-slate-500 mt-1">Digital enforcement of safety and quality control checklist completion.</p>
+                </div>
+                
+                <!-- Metric 4: Volume Handled -->
+                <div class="p-5 bg-white rounded-xl shadow-lg border-l-4 border-orange-500 hover:shadow-2xl transition duration-300">
+                    <div class="text-4xl font-extrabold text-orange-600 mb-2">5,000+</div>
+                    <p class="text-lg font-semibold text-slate-700">Monthly Transactions</p>
+                    <p class="text-sm text-slate-500 mt-1">Successfully handled by SQL and Dataverse-backed applications.</p>
                 </div>
             </div>
         </section>
+        <!-- END IMPACT AND ROI METRICS SECTION -->
 
         <section id="portfolio">
-            <h2 class="text-3xl font-bold text-center text-slate-800 mb-6">Explore Projects</h2>
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-6">Explore Key Project Solutions</h2>
             <div id="filter-container" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 p-4 bg-white rounded-xl shadow-inner max-w-6xl mx-auto">
-                <button onclick="filterProjects('All')" data-filter="All" class="filter-btn active px-4 py-2 text-sm font-medium rounded-full bg-teal-600 text-white shadow-lg">All Projects</button>
+                <button onclick="filterProjects('All')" data-filter="All" class="filter-btn active px-4 py-2 text-sm font-medium rounded-full bg-teal-600 text-white shadow-lg">All Solutions</button>
                 <!-- Filter buttons will be injected here -->
             </div>
 
@@ -93,6 +269,46 @@
                 <!-- Project cards will be injected here -->
             </div>
         </section>
+
+        <!-- CONTACT AND ABOUT SECTION (UPDATED) -->
+        <section id="contact-and-about" class="mt-20 p-8 bg-white rounded-2xl shadow-xl border-t-4 border-indigo-600 max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-center text-indigo-800 mb-6">Contact & Background Overview</h2>
+
+            <!-- Contact Details -->
+            <div class="mb-8 p-6 border border-indigo-200 bg-indigo-50 rounded-lg text-center">
+                <p class="text-xl font-semibold text-indigo-700 mb-3">Let's Connect</p>
+                <div class="space-y-2">
+                    <p class="text-lg text-slate-700 flex items-center justify-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                        <span class="font-medium">Email:</span> <a href="mailto:sravannidamanuri@gmail.com" class="text-teal-600 hover:underline">sravannidamanuri@gmail.com</a>
+                    </p>
+                    <p class="text-lg text-slate-700 flex items-center justify-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                        <span class="font-medium">Phone (UK):</span> <a href="tel:+447733740539" class="text-teal-600 hover:underline">+44 7733 740539</a>
+                    </p>
+                    <p class="text-lg text-slate-700 flex items-center justify-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                        <span class="font-medium">Phone (IN):</span> <a href="tel:+91991273417" class="text-teal-600 hover:underline">+91 99127 3417</a>
+                    </p>
+                    <p class="text-lg text-slate-700 flex items-center justify-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101M16.292 2.707a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101" /></svg>
+                        <span class="font-medium">LinkedIn:</span> <a href="https://www.linkedin.com/in/sravan-kumar-nidamanuri" target="_blank" class="text-teal-600 hover:underline">/in/sravan-kumar-nidamanuri</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Background Overview -->
+            <div class="mt-8">
+                <h3 class="text-2xl font-semibold text-indigo-700 mb-4 border-b pb-2">My Professional Background</h3>
+                <p class="text-slate-600 leading-relaxed">
+                    I am a highly motivated Power Platform Consultant with **7+ years of dedicated experience** in enterprise application development and business process automation. My strong foundation in the **Power Platform (PL-900 certified)** is complemented by my expertise in **data visualization and analysis (PL-300 certified)**, allowing me to build not only efficient apps and flows, but also to ensure the solutions deliver clear, actionable business intelligence. My specialization lies in bridging high-level business requirements with technical implementation, focusing on solutions that deliver tangible **ROI** through efficiency gains and robust data governance. My passion lies in transforming manual processes into modern, integrated, and user-friendly digital experiences.
+                </p>
+                <p class="text-sm italic text-slate-500 mt-4">
+                    Key Certification Focus: Power Platform Fundamentals (PL-900), Power BI Data Analyst Associate (PL-300).
+                </p>
+            </div>
+        </section>
+        <!-- END CONTACT AND ABOUT SECTION -->
 
     </div>
 
@@ -115,7 +331,182 @@
     <script>
         // Global API Configuration
         const apiKey = "";
-        const apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=" + apiKey;
+        const geminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=" + apiKey;
+
+        const projects = [
+            {
+                id: 1,
+                title: "Product Design Change Management System",
+                appType: "Canvas",
+                db: "Hybrid (SQL/SharePoint)",
+                tags: ["SQL", "SharePoint", "Hybrid Data", "Delegation", "Multi-Stage Approval", "ERP"],
+                summary: "A comprehensive system to manage and implement product design changes, linking live ERP data with a custom approval workflow.",
+                problem: "The existing process for managing product design changes relied on manual emails and spreadsheets, leading to delays, data entry errors, and a lack of visibility into the approval pipeline.",
+                solution: "Developed a Canvas App that provides a centralized platform for submitting, reviewing, and approving design changes. The app reads real-time product and stock data directly from the company's SQL-based ERP system and stores process-related data in SharePoint for auditable tracking.",
+                techStack: ["Power Apps (Canvas)", "Power Automate", "Power BI", "SQL Server Connector", "SharePoint"],
+                achievements: [
+                    "Created a hybrid data architecture combining SQL for live data and SharePoint for transactional data.",
+                    "Implemented complex, multi-stage, cross-functional approval flows using Power Automate.",
+                    "Utilized advanced delegation techniques to ensure high performance with large SQL datasets.",
+                    "Provided management with a Power BI dashboard for real-time visibility into change request status."
+                ]
+            },
+            {
+                id: 2,
+                title: "Product Order Configuration Tool",
+                appType: "Canvas",
+                db: "Hybrid (SQL/SharePoint)",
+                tags: ["SQL", "SharePoint", "Hybrid Data", "Complex Logic", "ERP"],
+                summary: "An app to manage complex product configurations based on sales orders, supporting production planning and works order generation.",
+                problem: "Sales orders for configurable products required manual validation and translation into production-ready works orders, a time-consuming process prone to human error.",
+                solution: "A Canvas App that pulls sales order requirements from the ERP (SQL) and guides users through a rules-based configuration process. It validates component compatibility and generates a detailed works order, which is stored in SharePoint before being fed into the production schedule.",
+                techStack: ["Power Apps (Canvas)", "Power Automate", "SQL Server Connector", "SharePoint"],
+                achievements: [
+                    "Engineered a complex rules engine within Power Apps to handle thousands of product configurations.",
+                    "Integrated directly with the sales order module of the ERP system for seamless data flow.",
+                    "Significantly reduced the time required to generate accurate works orders for production.",
+                    "Improved data consistency between sales and production departments."
+                ]
+            },
+            {
+                id: 3,
+                title: "Field Service Request Management",
+                appType: "Canvas",
+                db: "Dataverse",
+                tags: ["Dataverse", "Mobile", "Offline", "Resource Planning"],
+                summary: "A mobile-first application for logging customer service requests, planning technician resources, and ensuring on-site safety compliance.",
+                problem: "Field technicians lacked a centralized system to receive job details, report progress, and complete mandatory safety checks, resulting in inefficient scheduling and compliance risks.",
+                solution: "A mobile-optimized Canvas App built on Dataverse, enabling offline capabilities. Technicians can view job details, complete dynamic H&S checklists, capture customer signatures, and upload photos from the field. Office staff use the same system for resource allocation and scheduling.",
+                techStack: ["Power Apps (Canvas)", "Dataverse", "Power Automate", "Outlook"],
+                achievements: [
+                    "Successfully implemented offline capabilities, allowing technicians to work in areas with no connectivity.",
+                    "Designed a robust Dataverse data model to manage service requests, assets, and technician schedules.",
+                    "Automated resource planning and calendar invitations via Power Automate and Outlook integration.",
+                    "Ensured 100% compliance with digital health and safety checklist completion."
+                ]
+            },
+            {
+                id: 4,
+                title: "Corporate IT Ticketing System",
+                appType: "Canvas",
+                db: "SharePoint",
+                tags: ["SharePoint", "Power BI", "Workflow Automation"],
+                summary: "A company-wide system for employees to register IT issues, allowing the IT department to manage, prioritize, and report on their workload.",
+                problem: "IT support requests were managed through email, leading to lost tickets, no prioritization system, and an inability for the IT department to track performance metrics.",
+                solution: "A user-friendly Canvas App where employees can submit tickets with categorized issue types. A corresponding Power Automate flow handles notifications and assignments. A Power BI dashboard provides the IT manager with insights into ticket volume, resolution times, and common issues.",
+                techStack: ["Power Apps (Canvas)", "SharePoint Lists", "Power Automate", "Power BI"],
+                achievements: [
+                    "Built a scalable solution on SharePoint capable of handling high volumes of tickets.",
+                    "Automated the entire ticket lifecycle from submission to resolution notification.",
+                    "Empowered the IT department with data-driven insights through an integrated Power BI dashboard.",
+                    "Improved employee satisfaction with the IT support process through increased transparency."
+                ]
+            },
+            {
+                id: 5,
+                title: "Human Resource Management System (HRMS)",
+                appType: "Model-Driven",
+                db: "Dataverse",
+                tags: ["Dataverse", "Model-Driven", "Data Security", "Approval Workflows"],
+                summary: "A secure, comprehensive system for managing all core HR data, including employee records, timesheets, and leave requests.",
+                problem: "The company needed a centralized and secure platform to manage sensitive employee information, replacing disparate spreadsheets and manual approval processes.",
+                solution: "A Model-Driven App built on Dataverse, leveraging its role-based security to ensure data privacy. The app features custom tables for employee data, timesheets, and leave balances, with Power Automate managing complex, multi-level approval workflows for requests.",
+                techStack: ["Power Apps (Model-Driven)", "Dataverse", "Power Automate", "Power BI"],
+                achievements: [
+                    "Implemented granular, role-based security using Dataverse to protect sensitive HR data.",
+                    "Designed a relational data model with custom tables to represent the entire employee lifecycle.",
+                    "Automated leave request and timesheet approvals, significantly reducing administrative overhead.",
+                    "Provided HR with a single source of truth for all employee data and reporting."
+                ]
+            },
+            {
+                id: 6,
+                title: "Machine OEE Monitoring Application",
+                appType: "Canvas",
+                db: "SQL",
+                tags: ["SQL", "Power BI", "Real-time Data", "Role-Based UI"],
+                summary: "A two-part application for machine operators to report production data and for managers to monitor Overall Equipment Effectiveness (OEE) in real-time.",
+                problem: "Tracking machine performance and downtime was a manual, paper-based process, making it impossible to calculate accurate OEE or react quickly to production issues.",
+                solution: "Developed two distinct Canvas App interfaces: one simplified for quick data entry by machine operators on the factory floor, and a second, feature-rich admin version for managers. Both apps connect to a central SQL database. A live Power BI dashboard visualizes OEE metrics for the entire plant.",
+                techStack: ["Power Apps (Canvas)", "SQL Server", "Power Automate", "Power BI"],
+                achievements: [
+                    "Designed and implemented separate, role-specific UIs within a single solution.",
+                    "Built a high-performance system capable of handling frequent data submissions from multiple machines.",
+                    "Enabled real-time monitoring of critical manufacturing KPIs via a live Power BI dashboard.",
+                    "Replaced a paper-based system, leading to a significant improvement in data accuracy and availability."
+                ]
+            },
+            {
+                id: 7,
+                title: "Quality Control & SPC Data Capture",
+                appType: "Canvas",
+                db: "SQL",
+                tags: ["SQL", "Data Validation", "Report Generation", "Compliance"],
+                summary: "A specialized app for capturing Statistical Process Control (SPC) data, coating thickness, and pull test results, with automated batch reporting.",
+                problem: "Quality control data was recorded manually, posing a risk of non-compliance and making it difficult to generate the batch reports required by customers.",
+                solution: "A Canvas App that enforces strict data validation rules during entry to ensure compliance with quality standards. The app captures various test results and stores them in a structured SQL database. A Power Automate flow triggers on batch completion to automatically generate a formatted PDF report for the customer.",
+                techStack: ["Power Apps (Canvas)", "SQL Server", "Power Automate"],
+                achievements: [
+                    "Implemented complex data validation and calculation logic directly within the app.",
+                    "Automated the generation of customer-facing compliance reports, saving hours of manual work.",
+                    "Created a reliable, auditable trail for all quality control data.",
+                    "Improved the accuracy and consistency of SPC data capture."
+                ]
+            },
+            {
+                id: 8,
+                title: "ERP-Integrated Purchase Requisition System (PR)",
+                appType: "Canvas",
+                db: "SQL",
+                tags: ["SQL", "ERP", "Writeback", "Multi-Stage Approval"],
+                summary: "A system for raising and managing purchase requisitions, featuring deep integration with the ERP to automate purchase order generation.",
+                problem: "The purchase requisition process was manual and lacked integration with the ERP, requiring duplicate data entry and offering no visibility into approval or PO status.",
+                solution: "A Canvas App that allows users to create requisitions, which then enter a dynamic, multi-level approval process managed by Power Automate. Once fully approved, a stored procedure is called to write the data directly into the ERP's SQL database, automatically generating a purchase order. The app then reads PO status back from the ERP.",
+                techStack: ["Power Apps (Canvas)", "SQL Server (Direct ERP Integration)", "Power Automate"],
+                achievements: [
+                    "Achieved true writeback functionality to a production ERP system via SQL stored procedures.",
+                    "Designed a complex, dynamic approval flow that adapts based on requisition value and department.",
+                    "Provided requesters with end-to-end visibility, from submission to purchase order creation.",
+                    "Eliminated all duplicate data entry between the requisition and purchasing systems."
+                ]
+            },
+            {
+                id: 9,
+                title: "Non-Conformance & Quality Management (QUEST)",
+                appType: "Canvas",
+                db: "SQL",
+                tags: ["SQL", "Workflow Automation", "Corrective Action", "Compliance"],
+                summary: "An app for the quality department to manage non-conforming parts, track scrap, and oversee corrective action workflows.",
+                problem: "Non-conformance reporting was slow and disconnected from the production data (OEE App), delaying root cause analysis and corrective actions.",
+                solution: "A Canvas App that integrates with the OEE app data to quickly log non-conformances. It features structured forms for scrap reporting and a custom workflow for managing the 8D (Corrective and Preventive Action) process, ensuring compliance and rapid issue resolution.",
+                techStack: ["Power Apps (Canvas)", "SQL Server", "Power Automate"],
+                achievements: [
+                    "Directly linked quality reporting to production data for immediate identification of issues.",
+                    "Implemented a custom 8D (CAPA) workflow for standardized and auditable corrective actions.",
+                    "Provided tools for scrap management and real-time defect trend analysis.",
+                    "Significantly reduced the time from defect identification to corrective action planning."
+                ]
+            },
+            {
+                id: 10,
+                title: "HR Lifecycle Management (HRBOUR)",
+                appType: "Canvas",
+                db: "SQL",
+                tags: ["SQL", "HR", "Employee Lifecycle", "API Integration"],
+                summary: "An HR app to manage organizational change requests, employment updates (promotions), and employee details like address changes.",
+                problem: "HR changes required manual paperwork, leading to delays and potential errors in updating core HR systems and payroll.",
+                solution: "A Canvas App providing self-service forms for employees and managers to submit organizational requests (new hires, promotions, department changes). A Power Automate flow manages the multi-level approval and integrates via API to update the external third-party HR system.",
+                techStack: ["Power Apps (Canvas)", "SQL Server", "Power Automate", "Custom API Connector"],
+                achievements: [
+                    "Created a custom API connector to seamlessly update the external third-party HR system.",
+                    "Designed complex approval chains based on manager and HR hierarchy.",
+                    "Centralized all employee and organizational change requests, replacing paper forms.",
+                    "Ensured data consistency across the Power Platform and the core HR system."
+                ]
+            }
+        ];
+
+        let activeFilter = 'All';
 
         /**
          * Generic function to call the Gemini API with exponential backoff.
@@ -131,7 +522,7 @@
 
             for (let i = 0; i < maxRetries; i++) {
                 try {
-                    const response = await fetch(apiUrl, {
+                    const response = await fetch(geminiApiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
@@ -145,16 +536,13 @@
                         }
                     }
 
-                    // If not successful, throw error to trigger retry logic
                     throw new Error(`API call failed with status: ${response.status}`);
 
                 } catch (error) {
-                    // Suppress console error for retries, only log final failure
                     if (i === maxRetries - 1) {
                          console.error(`Attempt ${i + 1} failed:`, error);
                         return "Error: Could not connect to AI service. Please try again.";
                     }
-                    // Exponential backoff
                     await new Promise(resolve => setTimeout(resolve, delay));
                     delay *= 2;
                 }
@@ -204,7 +592,7 @@
             const responseText = document.getElementById('ai-response-text');
             
             responseText.innerHTML = `
-                <h4 class="text-base font-bold text-indigo-700 mb-2">Recruiter-Optimized Summary:</h4>
+                <h4 class="text-base font-bold text-indigo-700 mb-2">Executive Summary (Business Focus):</h4>
                 <p class="text-sm">${result}</p>
                 <p class="mt-2 text-xs text-slate-500">
                     <span class="font-bold">Original Summary:</span> ${project.summary}
@@ -237,14 +625,11 @@
             const responseArea = document.getElementById('ai-response-area');
             const responseText = document.getElementById('ai-response-text');
 
-            // Simple markdown to HTML conversion for numbered list
             const htmlResult = result.split('\n').map(line => {
                 const match = line.match(/^\s*(\d+)\.\s*(.*)/);
                 if (match) {
-                    // This is a list item
                     return `<li class="ml-4">${match[2].trim()}</li>`;
                 }
-                // Handle raw text/paragraphs if model outputs them
                 return line.trim() ? `<p>${line.trim()}</p>` : '';
             }).join('');
             
@@ -255,277 +640,17 @@
             responseArea.classList.remove('hidden');
         }
 
-
-        const projects = [
-            {
-                id: 1,
-                title: "Product Design Change Management System",
-                client: "Global Manufacturing Firm (AMScreen)",
-                appType: "Canvas",
-                db: "Hybrid (SQL/SharePoint)",
-                tags: ["SQL", "SharePoint", "Hybrid Data", "Delegation", "Multi-Stage Approval", "ERP"],
-                summary: "A comprehensive system to manage and implement product design changes, linking live ERP data with a custom approval workflow.",
-                problem: "The existing process for managing product design changes relied on manual emails and spreadsheets, leading to delays, data entry errors, and a lack of visibility into the approval pipeline.",
-                solution: "Developed a Canvas App that provides a centralized platform for submitting, reviewing, and approving design changes. The app reads real-time product and stock data directly from the company's SQL-based ERP system and stores process-related data in SharePoint for auditable tracking.",
-                techStack: ["Power Apps (Canvas)", "Power Automate", "Power BI", "SQL Server Connector", "SharePoint"],
-                achievements: [
-                    "Created a hybrid data architecture combining SQL for live data and SharePoint for transactional data.",
-                    "Implemented complex, multi-stage, cross-functional approval flows using Power Automate.",
-                    "Utilized advanced delegation techniques to ensure high performance with large SQL datasets.",
-                    "Provided management with a Power BI dashboard for real-time visibility into change request status."
-                ]
-            },
-            {
-                id: 2,
-                title: "Product Order Configuration Tool",
-                client: "Global Manufacturing Firm (AMScreen)",
-                appType: "Canvas",
-                db: "Hybrid (SQL/SharePoint)",
-                tags: ["SQL", "SharePoint", "Hybrid Data", "Complex Logic", "ERP"],
-                summary: "An app to manage complex product configurations based on sales orders, supporting production planning and works order generation.",
-                problem: "Sales orders for configurable products required manual validation and translation into production-ready works orders, a time-consuming process prone to human error.",
-                solution: "A Canvas App that pulls sales order requirements from the ERP (SQL) and guides users through a rules-based configuration process. It validates component compatibility and generates a detailed works order, which is stored in SharePoint before being fed into the production schedule.",
-                techStack: ["Power Apps (Canvas)", "Power Automate", "SQL Server Connector", "SharePoint"],
-                achievements: [
-                    "Engineered a complex rules engine within Power Apps to handle thousands of product configurations.",
-                    "Integrated directly with the sales order module of the ERP system for seamless data flow.",
-                    "Significantly reduced the time required to generate accurate works orders for production.",
-                    "Improved data consistency between sales and production departments."
-                ]
-            },
-            {
-                id: 3,
-                title: "Field Service Request Management",
-                client: "Global Manufacturing Firm (AMScreen)",
-                appType: "Canvas",
-                db: "Dataverse",
-                tags: ["Dataverse", "Mobile", "Offline", "Resource Planning"],
-                summary: "A mobile-first application for logging customer service requests, planning technician resources, and ensuring on-site safety compliance.",
-                problem: "Field technicians lacked a centralized system to receive job details, report progress, and complete mandatory safety checks, resulting in inefficient scheduling and compliance risks.",
-                solution: "A mobile-optimized Canvas App built on Dataverse, enabling offline capabilities. Technicians can view job details, complete dynamic H&S checklists, capture customer signatures, and upload photos from the field. Office staff use the same system for resource allocation and scheduling.",
-                techStack: ["Power Apps (Canvas)", "Dataverse", "Power Automate", "Outlook"],
-                achievements: [
-                    "Successfully implemented offline capabilities, allowing technicians to work in areas with no connectivity.",
-                    "Designed a robust Dataverse data model to manage service requests, assets, and technician schedules.",
-                    "Automated resource planning and calendar invitations via Power Automate and Outlook integration.",
-                    "Ensured 100% compliance with digital health and safety checklist completion."
-                ]
-            },
-            {
-                id: 4,
-                title: "Corporate IT Ticketing System",
-                client: "Global Manufacturing Firm (AMScreen)",
-                appType: "Canvas",
-                db: "SharePoint",
-                tags: ["SharePoint", "Power BI", "Workflow Automation"],
-                summary: "A company-wide system for employees to register IT issues, allowing the IT department to manage, prioritize, and report on their workload.",
-                problem: "IT support requests were managed through email, leading to lost tickets, no prioritization system, and an inability for the IT department to track performance metrics.",
-                solution: "A user-friendly Canvas App where employees can submit tickets with categorized issue types. A corresponding Power Automate flow handles notifications and assignments. A Power BI dashboard provides the IT manager with insights into ticket volume, resolution times, and common issues.",
-                techStack: ["Power Apps (Canvas)", "SharePoint Lists", "Power Automate", "Power BI"],
-                achievements: [
-                    "Built a scalable solution on SharePoint capable of handling high volumes of tickets.",
-                    "Automated the entire ticket lifecycle from submission to resolution notification.",
-                    "Empowered the IT department with data-driven insights through an integrated Power BI dashboard.",
-                    "Improved employee satisfaction with the IT support process through increased transparency."
-                ]
-            },
-            {
-                id: 5,
-                title: "Human Resource Management System (HRMS)",
-                client: "IT Services Provider (Sysglobal IT)",
-                appType: "Model-Driven",
-                db: "Dataverse",
-                tags: ["Dataverse", "Model-Driven", "Data Security", "Approval Workflows"],
-                summary: "A secure, comprehensive system for managing all core HR data, including employee records, timesheets, and leave requests.",
-                problem: "The company needed a centralized and secure platform to manage sensitive employee information, replacing disparate spreadsheets and manual approval processes.",
-                solution: "A Model-Driven App built on Dataverse, leveraging its role-based security to ensure data privacy. The app features custom tables for employee data, timesheets, and leave balances, with Power Automate managing complex, multi-level approval workflows for requests.",
-                techStack: ["Power Apps (Model-Driven)", "Dataverse", "Power Automate", "Power BI"],
-                achievements: [
-                    "Implemented granular, role-based security using Dataverse to protect sensitive HR data.",
-                    "Designed a relational data model with custom tables to represent the entire employee lifecycle.",
-                    "Automated leave request and timesheet approvals, significantly reducing administrative overhead.",
-                    "Provided HR with a single source of truth for all employee data and reporting."
-                ]
-            },
-            {
-                id: 6,
-                title: "Machine OEE Monitoring Application",
-                client: "Automotive Supplier (BCW Group)",
-                appType: "Canvas",
-                db: "SQL",
-                tags: ["SQL", "Power BI", "Real-time Data", "Role-Based UI"],
-                summary: "A two-part application for machine operators to report production data and for managers to monitor Overall Equipment Effectiveness (OEE) in real-time.",
-                problem: "Tracking machine performance and downtime was a manual, paper-based process, making it impossible to calculate accurate OEE or react quickly to production issues.",
-                solution: "Developed two distinct Canvas App interfaces: one simplified for quick data entry by machine operators on the factory floor, and a second, feature-rich admin version for managers. Both apps connect to a central SQL database. A live Power BI dashboard visualizes OEE metrics for the entire plant.",
-                techStack: ["Power Apps (Canvas)", "SQL Server", "Power Automate", "Power BI"],
-                achievements: [
-                    "Designed and implemented separate, role-specific UIs within a single solution.",
-                    "Built a high-performance system capable of handling frequent data submissions from multiple machines.",
-                    "Enabled real-time monitoring of critical manufacturing KPIs via a live Power BI dashboard.",
-                    "Replaced a paper-based system, leading to a significant improvement in data accuracy and availability."
-                ]
-            },
-            {
-                id: 7,
-                title: "Quality Control & SPC Data Capture (BONDEX)",
-                client: "Automotive Supplier (BCW Group)",
-                appType: "Canvas",
-                db: "SQL",
-                tags: ["SQL", "Data Validation", "Report Generation", "Compliance"],
-                summary: "A specialized app for capturing Statistical Process Control (SPC) data, coating thickness, and pull test results, with automated batch reporting.",
-                problem: "Quality control data was recorded manually, posing a risk of non-compliance and making it difficult to generate the batch reports required by customers.",
-                solution: "A Canvas App that enforces strict data validation rules during entry to ensure compliance with quality standards. The app captures various test results and stores them in a structured SQL database. A Power Automate flow triggers on batch completion to automatically generate a formatted PDF report for the customer.",
-                techStack: ["Power Apps (Canvas)", "SQL Server", "Power Automate"],
-                achievements: [
-                    "Implemented complex data validation and calculation logic directly within the app.",
-                    "Automated the generation of customer-facing compliance reports, saving hours of manual work.",
-                    "Created a reliable, auditable trail for all quality control data.",
-                    "Improved the accuracy and consistency of SPC data capture."
-                ]
-            },
-            {
-                id: 8,
-                title: "ERP-Integrated Purchase Requisition System (PR)",
-                client: "Automotive Supplier (BCW Group)",
-                appType: "Canvas",
-                db: "SQL",
-                tags: ["SQL", "ERP", "Writeback", "Multi-Stage Approval"],
-                summary: "A system for raising and managing purchase requisitions, featuring deep integration with the ERP to automate purchase order generation.",
-                problem: "The purchase requisition process was manual and lacked integration with the ERP, requiring duplicate data entry and offering no visibility into approval or PO status.",
-                solution: "A Canvas App that allows users to create requisitions, which then enter a dynamic, multi-level approval process managed by Power Automate. Once fully approved, a stored procedure is called to write the data directly into the ERP's SQL database, automatically generating a purchase order. The app then reads PO status back from the ERP.",
-                techStack: ["Power Apps (Canvas)", "SQL Server (Direct ERP Integration)", "Power Automate"],
-                achievements: [
-                    "Achieved true writeback functionality to a production ERP system via SQL stored procedures.",
-                    "Designed a complex, dynamic approval flow that adapts based on requisition value and department.",
-                    "Provided requesters with end-to-end visibility, from submission to purchase order creation.",
-                    "Eliminated all duplicate data entry between the requisition and purchasing systems."
-                ]
-            },
-            {
-                id: 9,
-                title: "Non-Conformance & Quality Management (QUEST)",
-                client: "Automotive Supplier (BCW Group)",
-                appType: "Canvas",
-                db: "SQL",
-                tags: ["SQL", "Workflow Automation", "Corrective Action", "Compliance"],
-                summary: "An app for the quality department to manage non-conforming parts, track scrap, and oversee corrective action workflows.",
-                problem: "Non-conformance reporting was slow and disconnected from the production data (OEE App), delaying root cause analysis and corrective actions.",
-                solution: "A Canvas App that integrates with the OEE app data to quickly log non-conformances. It features structured forms for scrap reporting and a custom workflow for managing the 8D (Corrective and Preventive Action) process, ensuring compliance and rapid issue resolution.",
-                techStack: ["Power Apps (Canvas)", "SQL Server", "Power Automate"],
-                achievements: [
-                    "Directly linked quality reporting to production data for immediate identification of issues.",
-                    "Implemented a custom 8D (CAPA) workflow for standardized and auditable corrective actions.",
-                    "Provided tools for scrap management and real-time defect trend analysis.",
-                    "Significantly reduced the time from defect identification to corrective action planning."
-                ]
-            },
-            {
-                id: 10,
-                title: "HR Lifecycle Management (HRBOUR)",
-                client: "Automotive Supplier (BCW Group)",
-                appType: "Canvas",
-                db: "SQL",
-                tags: ["SQL", "HR", "Employee Lifecycle", "API Integration"],
-                summary: "An HR app to manage organizational change requests, employment updates (promotions), and employee details like address changes.",
-                problem: "HR changes required manual paperwork, leading to delays and potential errors in updating core HR systems and payroll.",
-                solution: "A Canvas App providing self-service forms for employees and managers to submit organizational requests (new hires, promotions, department changes). A Power Automate flow manages the multi-level approval and integrates via API to update the external third-party HR system.",
-                techStack: ["Power Apps (Canvas)", "SQL Server", "Power Automate", "Custom API Connector"],
-                achievements: [
-                    "Created a custom API connector to seamlessly update the external third-party HR system.",
-                    "Designed complex approval chains based on manager and HR hierarchy.",
-                    "Centralized all employee and organizational change requests, replacing paper forms.",
-                    "Ensured data consistency across the Power Platform and the core HR system."
-                ]
-            }
-        ];
-
-        let dbChartInstance = null;
-        let appTypeChartInstance = null;
-        let activeFilter = 'All';
-
-        const colorPalette = [
-            '#0f766e', // Teal-700
-            '#10b981', // Emerald-500
-            '#3b82f6', // Blue-500
-            '#ef4444', // Red-500
-            '#f59e0b', // Amber-500
-            '#a855f7', // Violet-500
-        ];
-
-        function calculateChartData() {
-            const dbCounts = {};
-            const appTypeCounts = {};
+        // Simplified function to only extract tags for filtering
+        function calculatePortfolioData() {
             const allTags = new Set();
-
             projects.forEach(p => {
-                dbCounts[p.db] = (dbCounts[p.db] || 0) + 1;
-                appTypeCounts[p.appType] = (appTypeCounts[p.appType] || 0) + 1;
                 p.tags.forEach(tag => allTags.add(tag));
             });
-
-            return { dbCounts, appTypeCounts, allTags: Array.from(allTags).sort() };
-        }
-
-        function renderCharts(data) {
-            const dbCtx = document.getElementById('dbChart').getContext('2d');
-            const appTypeCtx = document.getElementById('appTypeChart').getContext('2d');
-
-            const dbData = {
-                labels: Object.keys(data.dbCounts),
-                datasets: [{
-                    data: Object.values(data.dbCounts),
-                    backgroundColor: colorPalette.slice(0, Object.keys(data.dbCounts).length),
-                    hoverOffset: 4
-                }]
-            };
-
-            const appTypeData = {
-                labels: Object.keys(data.appTypeCounts),
-                datasets: [{
-                    data: Object.values(data.appTypeCounts),
-                    backgroundColor: colorPalette.slice(0, Object.keys(data.appTypeCounts).length),
-                    hoverOffset: 4
-                }]
-            };
-
-            const chartOptions = {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            padding: 15,
-                            font: {
-                                family: 'Inter',
-                                size: 13
-                            }
-                        }
-                    },
-                    tooltip: {
-                        bodyFont: { family: 'Inter' }
-                    }
-                }
-            };
-
-            if (dbChartInstance) dbChartInstance.destroy();
-            dbChartInstance = new Chart(dbCtx, {
-                type: 'doughnut',
-                data: dbData,
-                options: chartOptions
-            });
-
-            if (appTypeChartInstance) appTypeChartInstance.destroy();
-            appTypeChartInstance = new Chart(appTypeCtx, {
-                type: 'doughnut',
-                data: appTypeData,
-                options: chartOptions
-            });
+            return { allTags: Array.from(allTags).sort() };
         }
 
         function renderFilters(allTags) {
             const container = document.getElementById('filter-container');
-            // Remove the 'All Projects' button before regeneration, as it's hardcoded in HTML
             const existingButtons = container.querySelectorAll('.filter-btn:not([data-filter="All"])');
             existingButtons.forEach(btn => btn.remove());
 
@@ -573,7 +698,7 @@
                 
                 card.innerHTML = `
                     <h3 class="text-xl font-bold text-slate-800 mb-2">${p.title}</h3>
-                    <p class="text-sm text-slate-500 mb-4">${p.client}</p>
+                    <p class="text-sm text-slate-500 mb-4 font-semibold">Project Solution</p>
                     <p class="text-slate-600 mb-4">${p.summary}</p>
                     <div class="flex flex-wrap gap-2">
                         ${p.tags.slice(0, 4).map(tag => `<span class="px-3 py-1 text-xs font-semibold bg-slate-100 text-teal-700 rounded-full">${tag}</span>`).join('')}
@@ -591,12 +716,10 @@
             const modal = document.getElementById('projectModal');
             const modalBody = document.getElementById('modalBody');
             
-            // Clear previous response before opening a new modal
             modalBody.innerHTML = ''; 
 
             modalBody.innerHTML = `
-                <h2 class="text-3xl font-bold text-slate-800 mb-2">${project.title}</h2>
-                <p class="text-lg text-teal-600 mb-6">${project.client}</p>
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">${project.title}</h2>
 
                 <div class="mb-6 flex flex-wrap gap-4 text-sm font-medium">
                     <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-lg">App Type: ${project.appType}</span>
@@ -627,7 +750,7 @@
                     </div>
                 </div>
 
-                <!-- NEW: GEMINI AI SECTION -->
+                <!-- GEMINI AI SECTION -->
                 <div class="mt-8 pt-6 border-t border-slate-200">
                     <h3 class="text-2xl font-bold text-teal-700 mb-4">AI-Powered Portfolio Tools</h3>
                     <div id="ai-response-area" class="bg-slate-100 p-4 rounded-xl text-slate-700 hidden shadow-inner">
@@ -642,11 +765,10 @@
                         </button>
                     </div>
                 </div>
-                <!-- END NEW SECTION -->
+                <!-- END GEMINI AI SECTION -->
             `;
 
             modal.classList.remove('hidden');
-            // Animate in
             setTimeout(() => {
                 modal.querySelector('.modal-content').classList.remove('opacity-0', 'scale-95');
                 modal.querySelector('.modal-content').classList.add('opacity-100', 'scale-100');
@@ -655,17 +777,18 @@
 
         function closeModal() {
             const modal = document.getElementById('projectModal');
-            // Animate out
             modal.querySelector('.modal-content').classList.remove('opacity-100', 'scale-100');
             modal.querySelector('.modal-content').classList.add('opacity-0', 'scale-95');
             setTimeout(() => {
                 modal.classList.add('hidden');
+                // Hide and clear AI response area on modal close
+                document.getElementById('ai-response-area').classList.add('hidden');
+                document.getElementById('ai-response-text').innerHTML = '';
             }, 300);
         }
 
         function init() {
-            const data = calculateChartData();
-            renderCharts(data);
+            const data = calculatePortfolioData();
             renderFilters(data.allTags);
             renderProjects();
         }
